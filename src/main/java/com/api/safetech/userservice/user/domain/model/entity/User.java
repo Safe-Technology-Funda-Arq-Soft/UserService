@@ -60,4 +60,6 @@ public class User extends AuditModel {
 
     @NotNull
     private Date birthday;
+
+
 }
