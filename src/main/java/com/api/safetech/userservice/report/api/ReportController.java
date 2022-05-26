@@ -14,7 +14,7 @@ import java.util.List;
 
 @Tag(name = "Report")
 @RestController
-@RequestMapping("api/v1")
+@RequestMapping("api/v1/reports")
 @CrossOrigin
 public class ReportController {
     @Autowired
@@ -24,31 +24,31 @@ public class ReportController {
     private ReportMapper reportMapper;
 
     @Operation(summary = "Get All Reports", description = "Get All Reports")
-    @GetMapping("reports")
+    @GetMapping()
     public List<ReportResource> getAll(){
         return reportMapper.toResource(reportService.getAll());
     }
 
     @Operation(summary = "Get Report by Id", description = "Get Report by Id")
-    @GetMapping("reports/{reportId}")
+    @GetMapping("{reportId}")
     public ReportResource getReportById(@PathVariable Long reportId){
         return reportMapper.toResource(reportService.getById(reportId));
     }
 
     @Operation(summary = "Get Reports by UserId", description = "Get All Reports by UserId")
-    @GetMapping("users/{userId}/reports")
+    @GetMapping("users/{userId}")
     public List<ReportResource> getReportByUserId(@PathVariable Long userId){
         return reportMapper.toResource(reportService.getByUserId(userId));
     }
 
     @Operation(summary = "Create New Report", description = "Create New Report")
-    @PostMapping("users/{userId}/reports")
+    @PostMapping("users/{userId}")
     public ReportResource createReport(@RequestBody CreateReportResource model, @PathVariable Long userId){
         return reportMapper.toResource(reportService.create(reportMapper.toModel(model), userId));
     }
 
     @Operation(summary = "Update Report", description = "Update Report")
-    @PutMapping("reports/{reportId}")
+    @PutMapping("{reportId}")
     public ReportResource updateReport(@PathVariable Long reportId, @RequestBody UpdateReportResource model){
         return reportMapper.toResource(reportService.update(reportId, reportMapper.toModel(model)));
     }
